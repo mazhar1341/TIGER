@@ -1,0 +1,70 @@
+1. List All Players and Their Teams
+
+SELECT PlayerName, TeamName 
+FROM Player 
+JOIN Team ON Player.TeamID = Team.TeamID;
+
+2. Find All Games in a Specific Tournament
+
+SELECT GameID, GameDate, GameTime, Location 
+FROM Game 
+WHERE TournamentID = 1;
+
+3. List All Teams Participating in a Tournament
+
+SELECT TournamentName, TeamName 
+FROM TournamentTeam 
+JOIN Tournament ON TournamentTeam.TournamentID = Tournament.TournamentID 
+JOIN Team ON TournamentTeam.TeamID = Team.TeamID;
+
+4. List Coaches and Their Associated Teams
+
+SELECT Coach.FirstName, Coach.LastName, Team.TeamName 
+FROM Coach 
+JOIN Team ON Coach.CoachID = Team.CoachID;
+
+5. Count the Number of Players in Each Team
+
+SELECT TeamName, COUNT(PlayerID) AS NumberOfPlayers 
+FROM Player 
+JOIN Team ON Player.TeamID = Team.TeamID 
+GROUP BY TeamName;
+
+6. List All Tournaments and Their Sports
+
+SELECT TournamentName, SportName 
+FROM Tournament 
+JOIN Sport ON Tournament.SportID = Sport.SportID;
+
+7. List All Games Along with Teams Involved
+
+SELECT Game.GameID, Game.GameDate, Game.GameTime, Game.Location, 
+       Team1.TeamName AS Team1, Team2.TeamName AS Team2
+FROM Game
+JOIN Team AS Team1 ON Game.TeamID1 = Team1.TeamID
+JOIN Team AS Team2 ON Game.TeamID2 = Team2.TeamID;
+
+8. List All Players for a Specific Team
+
+SELECT PlayerName, DOB 
+FROM Player 
+WHERE TeamID = 1;
+
+
+9. Find Tournaments a Specific Team Has Participated In
+
+SELECT TournamentName 
+FROM TournamentTeam 
+JOIN Tournament ON TournamentTeam.TournamentID = Tournament.TournamentID
+WHERE TournamentTeam.TeamID = 1;
+
+10. List All Coaches with the Number of Teams They Manage
+
+SELECT Coach.FirstName, Coach.LastName, COUNT(Team.TeamID) AS NumberOfTeams 
+FROM Coach 
+JOIN Team ON Coach.CoachID = Team.CoachID 
+GROUP BY Coach.CoachID;
+
+
+important note : Modify placeholders (e.g., 1 in WHERE TournamentID = 1) with appropriate values as needed.
+

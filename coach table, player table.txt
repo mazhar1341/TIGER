@@ -1,0 +1,13 @@
+CREATE TABLE Coach (
+    CoachID INT IDENTITY(1,1) PRIMARY KEY,
+    FirstName VARCHAR(50) NOT NULL,
+    LastName VARCHAR(50) NOT NULL,
+    Experience INT NOT NULL
+);
+
+
+CREATE TABLE Sports (
+    SportID INT IDENTITY(1,1) PRIMARY KEY,
+    SportName VARCHAR(50) NOT NULL,
+    Description TEXT
+);

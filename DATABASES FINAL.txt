@@ -1,0 +1,126 @@
+-- Create Table: Sport
+CREATE TABLE Sport (
+    SportID INTEGER PRIMARY KEY,
+    SportName TEXT NOT NULL
+);
+
+-- Create Table: Coach
+CREATE TABLE Coach (
+    CoachID INTEGER PRIMARY KEY,
+    FirstName TEXT NOT NULL,
+    LastName TEXT NOT NULL,
+    Experience INTEGER NOT NULL
+);
+
+-- Create Table: Team
+CREATE TABLE Team (
+    TeamID INTEGER PRIMARY KEY,
+    TeamName TEXT NOT NULL,
+    CoachID INTEGER,
+    SportID INTEGER,
+    FOREIGN KEY (CoachID) REFERENCES Coach(CoachID),
+    FOREIGN KEY (SportID) REFERENCES Sport(SportID)
+);
+
+-- Create Table: Player
+CREATE TABLE Player (
+    PlayerID INTEGER PRIMARY KEY,
+    PlayerName TEXT NOT NULL,
+    DOB DATE NOT NULL,
+    TeamID INTEGER,
+    FOREIGN KEY (TeamID) REFERENCES Team(TeamID)
+);
+
+-- Create Table: Tournament
+CREATE TABLE Tournament (
+    TournamentID INTEGER PRIMARY KEY,
+    TournamentName TEXT NOT NULL,
+    TournamentStartDate DATE,
+    TournamentEndDate DATE,
+    SportID INTEGER,
+    FOREIGN KEY (SportID) REFERENCES Sport(SportID)
+);
+
+-- Create Table: Game
+CREATE TABLE Game (
+    GameID INTEGER PRIMARY KEY,
+    GameDate DATE NOT NULL,
+    GameTime TEXT NOT NULL, -- SQLite does not have a TIME datatype, so use TEXT
+    Location TEXT NOT NULL,
+    TournamentID INTEGER,
+    TeamID1 INTEGER,
+    TeamID2 INTEGER,
+    FOREIGN KEY (TournamentID) REFERENCES Tournament(TournamentID),
+    FOREIGN KEY (TeamID1) REFERENCES Team(TeamID),
+    FOREIGN KEY (TeamID2) REFERENCES Team(TeamID)
+);
+
+-- Create Table: TournamentTeam
+CREATE TABLE TournamentTeam (
+    TournamentTeamID INTEGER PRIMARY KEY,
+    TournamentID INTEGER,
+    TeamID INTEGER,
+    FOREIGN KEY (TournamentID) REFERENCES Tournament(TournamentID),
+    FOREIGN KEY (TeamID) REFERENCES Team(TeamID)
+);
+
+-- Insert Data into Sport Table
+INSERT INTO Sport (SportID, SportName) VALUES
+(1, 'Football'),
+(2, 'Basketball'),
+(3, 'Cricket'),
+(4, 'Tennis'),
+(5, 'Hockey');
+
+-- Insert Data into Coach Table
+INSERT INTO Coach (CoachID, FirstName, LastName, Experience) VALUES
+(1, 'John', 'Doe', 10),
+(2, 'Jane', 'Smith', 7),
+(3, 'Michael', 'Johnson', 15),
+(4, 'Emily', 'Davis', 5),
+(5, 'Robert', 'Brown', 12);
+
+-- Insert Data into Team Table
+INSERT INTO Team (TeamID, TeamName, CoachID, SportID) VALUES
+(1, 'Eagles', 1, 1),
+(2, 'Sharks', 2, 2),
+(3, 'Lions', 3, 3),
+(4, 'Wolves', 4, 4),
+(5, 'Tigers', 5, 5);
+
+-- Insert Data into Player Table
+INSERT INTO Player (PlayerID, PlayerName, DOB, TeamID) VALUES
+(1, 'Alice', '1995-04-23', 1),
+(2, 'Bob', '1998-11-15', 2),
+(3, 'Charlie', '2000-07-09', 3),
+(4, 'David', '1997-02-12', 4),
+(5, 'Eve', '1996-10-30', 5);
+
+-- Insert Data into Tournament Table
+INSERT INTO Tournament (TournamentID, TournamentName, TournamentStartDate, TournamentEndDate, SportID) VALUES
+(1, 'Champions League', '2024-06-01', '2024-07-01', 1),
+(2, 'City Cup', '2024-08-10', '2024-08-20', 2),
+(3, 'National Championship', '2024-09-05', '2024-09-15', 3),
+(4, 'Open Tournament', '2024-10-01', '2024-10-15', 4),
+(5, 'World Series', '2024-11-01', '2024-11-20', 5);
+
+-- Insert Data into Game Table
+INSERT INTO Game (GameID, GameDate, GameTime, Location, TournamentID, TeamID1, TeamID2) VALUES
+(1, '2024-06-05', '15:30:00', 'Stadium A', 1, 1, 2),
+(2, '2024-08-12', '18:00:00', 'Arena B', 2, 2, 3),
+(3, '2024-09-07', '14:00:00', 'Field C', 3, 3, 4),
+(4, '2024-10-03', '16:30:00', 'Court D', 4, 4, 5),
+(5, '2024-11-05', '20:00:00', 'Park E', 5, 5, 1);
+
+-- Insert Data into TournamentTeam Table
+INSERT INTO TournamentTeam (TournamentTeamID, TournamentID, TeamID) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 2, 2),
+(4, 2, 3),
+(5, 3, 3),
+(6, 3, 4),
+(7, 4, 4),
+(8, 4, 5),
+(9, 5, 5),
+(10, 5, 1);
