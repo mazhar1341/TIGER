@@ -1,0 +1,14 @@
+INSERT INTO Sport (SportName)
+VALUES
+('Football'),
+('Basketball'),
+('Tennis'),
+('Swimming'),
+('Volleyball');
+INSERT INTO TournamentTeam (TournamentID, TeamID)
+VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5);
